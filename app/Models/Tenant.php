@@ -5,17 +5,23 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Building extends Model
+class Tenant extends Model
 {
     use HasFactory;
 
     protected $fillable = [
         'owner_id',
+        'building_id',
         'name',
-        'address'
+        'email',
+        'phone',
     ];
 
-    public function owner(){
+    public function owner() {
         return $this->belongsTo(User::class, 'owner_id');
+    }
+
+    public function building() {
+        return $this->belongsTo(Building::class);
     }
 }
