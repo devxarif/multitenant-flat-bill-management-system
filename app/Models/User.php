@@ -47,4 +47,19 @@ class User extends Authenticatable
             'role'              => UserRoleEnum::class,
         ];
     }
+
+    public function isAdmin(): bool
+    {
+        return $this->role === 'admin';
+    }
+
+    public function isOwner(): bool
+    {
+        return $this->role === 'owner';
+    }
+
+    public function building() {
+        return $this->hasOne(Building::class, 'owner_id');
+    }
+
 }
