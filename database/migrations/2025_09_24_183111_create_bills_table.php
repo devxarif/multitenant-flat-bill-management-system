@@ -23,7 +23,6 @@ return new class extends Migration
             $table->decimal('total_due', 10, 2);
             $table->enum('status', ['unpaid','paid','partial'])->default('unpaid')->index();
             $table->text('notes')->nullable();
-            $table->timestamps();
             $table->index(['owner_id','flat_id','status','month']);
             $table->timestamps();
         });

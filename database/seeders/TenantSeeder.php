@@ -2,8 +2,8 @@
 
 namespace Database\Seeders;
 
+use App\Models\Building;
 use App\Models\Tenant;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
 class TenantSeeder extends Seeder
@@ -13,6 +13,14 @@ class TenantSeeder extends Seeder
      */
     public function run(): void
     {
-        Tenant::factory(50)->create();
+        $buildings = Building::all();
+
+        foreach ($buildings as $building) {
+            if (rand(0, 100) < 70) {
+                Tenant::factory()->create([
+                    'building_id' => $building->id,
+                ]);
+            }
+        }
     }
 }

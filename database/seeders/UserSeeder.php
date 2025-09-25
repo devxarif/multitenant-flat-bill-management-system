@@ -20,8 +20,14 @@ class UserSeeder extends Seeder
             'password'  => bcrypt('password'),
             'role'      => UserRoleEnum::ADMIN->value,
         ]);
+        User::create([
+            'name'      => 'Owner User',
+            'email'     => 'owner@mail.com',
+            'password'  => bcrypt('password'),
+            'role'      => UserRoleEnum::OWNER->value,
+        ]);
 
-        User::factory()->count(5)->create([
+        User::factory()->count(8)->create([
             'role' => UserRoleEnum::OWNER->value
         ]);
     }

@@ -22,7 +22,7 @@ class BillFactory extends Factory
     public function definition(): array
     {
         $owner_id = User::where('role', UserRoleEnum::OWNER)->inRandomOrder()->value('id');
-        $building_id = Building::where('user_id', $owner_id)->inRandomOrder()->value('id');
+        $building_id = Building::where('owner_id', $owner_id)->inRandomOrder()->value('id');
         $flat_id = Flat::where('building_id', $building_id)->inRandomOrder()->value('id');
 
         return [
@@ -34,7 +34,7 @@ class BillFactory extends Factory
             'amount'            => fake()->numberBetween(500, 5000),
             'carried_due'       => fake()->numberBetween(500, 5000),
             'total_due'         => fake()->numberBetween(500, 5000),
-            'status'            => fake()->randomElement(['unpaid','paid','overdue']),
+            'status'            => fake()->randomElement(['unpaid','paid','partial']),
             'notes'             => fake()->paragraph(),
         ];
     }

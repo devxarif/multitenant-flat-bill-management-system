@@ -21,11 +21,10 @@ class TenantFactory extends Factory
     {
         $building = Building::inRandomOrder()->first();
         $owner = $building->owner;
-        $flat = Flat::where('building_id', $building->id)->inRandomOrder()->first();
 
         return [
             'owner_id' => $owner->id,
-            'flat_id' => $flat->id,
+            'building_id' => $building->id,
             'name' => fake()->name(),
             'email' => fake()->email(),
             'phone' => fake()->phoneNumber(),
