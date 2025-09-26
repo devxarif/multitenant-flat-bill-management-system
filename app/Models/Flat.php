@@ -11,7 +11,11 @@ class Flat extends Model
     use HasFactory;
 
     protected $fillable = [
-        'building_id','owner_id','flat_number','flat_owner_name','flat_owner_phone'
+        'building_id',
+        'owner_id',
+        'flat_number',
+        'flat_owner_name',
+        'flat_owner_phone'
     ];
 
     protected static function booted()
@@ -31,5 +35,9 @@ class Flat extends Model
 
     public function tenants() {
         return $this->belongsToMany(Tenant::class, 'flat_tenant')->withTimestamps();
+    }
+
+    public function bills() {
+        return $this->hasMany(Bill::class, 'flat_id');
     }
 }

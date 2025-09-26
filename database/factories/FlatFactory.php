@@ -23,8 +23,8 @@ class FlatFactory extends Factory
             'building_id' => $building->id,
             'owner_id' => $building->owner_id,
             'flat_number' => strtoupper($this->faker->bothify('A-##')),
-            'flat_owner_name' => '',
-            'flat_owner_phone' => '',
+            'flat_owner_name' => fake()->name(),
+            'flat_owner_phone' => fake()->phoneNumber(),
         ];
     }
 }
