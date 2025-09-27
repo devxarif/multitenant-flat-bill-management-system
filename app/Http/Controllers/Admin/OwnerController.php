@@ -68,7 +68,7 @@ class OwnerController extends Controller
         $owner->update([
             'name'=>$data['name'],
             'email'=>$data['email'],
-            'password'=> $data['password'] ? Hash::make($data['password']) : $owner->password
+            'password'=> $data['password'] ? bcrypt($data['password']) : $owner->password
         ]);
 
         $owner->building()->update([

@@ -13,7 +13,6 @@
         <div class="mb-3">
           <label class="block text-sm">Flat Number</label>
           <input name="flat_number" required class="w-full border px-3 py-2" value="{{ old('flat_number') }}">
-          @error('flat_number')<p class="text-red-600 text-sm">{{ $message }}</p>@enderror
         </div>
         <div class="mb-3">
             <label class="block text-sm">Flat Owner Name</label>

@@ -36,7 +36,6 @@ class FlatController extends Controller
 
     public function show(Flat $flat)
     {
-        // $this->authorize('manage-owner', $flat);
         $flat->load(['tenants', 'bills' => function($q){
             $q->with('category')->orderByDesc('month');
         }]);
@@ -63,6 +62,7 @@ class FlatController extends Controller
     public function destroy(Flat $flat)
     {
         $flat->delete();
+
         return back()->with('success', 'Flat deleted.');
     }
 }

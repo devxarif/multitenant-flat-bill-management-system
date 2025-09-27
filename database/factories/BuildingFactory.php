@@ -19,9 +19,9 @@ class BuildingFactory extends Factory
     public function definition(): array
     {
         return [
-            'owner_id' => User::inRandomOrder()->where('role', UserRoleEnum::OWNER)->value('id'),
-            'name' => $this->faker->company() . ' Apartments',
-            'address' => $this->faker->address(),
+            'owner_id'  => User::inRandomOrder()->where('role', UserRoleEnum::OWNER)->value('id'),
+            'name'      => $this->faker->company() . ' Apartments',
+            'address'   => $this->faker->address(),
         ];
     }
 }

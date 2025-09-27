@@ -31,9 +31,13 @@ class BillController extends Controller
     }
 
     public function store(Request $request){
-        $request->validate(['flat_id'=>'required|exists:flats,id','bill_category_id'=>'required|exists:bill_categories,id','month'=>'required|date','amount'=>'required|numeric']);
-        $month = Carbon::parse($request->month)->startOfMonth()->toDateString();
+        $request->validate([
+            'flat_id'           =>  'required|exists:flats,id',
+            'bill_category_id'  =>  'required|exists:bill_categories,id',
+            'month'             =>  'required|date','amount'=>'required|numeric'
+        ]);
 
+        $month = Carbon::parse($request->month)->startOfMonth()->toDateString();
         $prevDue = Bill::where('flat_id',$request->flat_id)
             ->where('month','<',$month)
             ->whereIn('status',['unpaid','partial'])
