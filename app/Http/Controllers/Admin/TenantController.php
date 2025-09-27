@@ -7,7 +7,6 @@ use App\Models\Tenant;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
-use Illuminate\Contracts\Validation\Rule;
 
 class TenantController extends Controller
 {
@@ -87,18 +86,13 @@ class TenantController extends Controller
                 'phone' => $data['phone'] ?? null,
             ]);
 
-            // Option A: Replace assignments — use sync() to make selected flats the current set
             $syncData = [];
             $today = now()->toDateString();
             foreach ($data['flat_ids'] as $flatId) {
                 $syncData[$flatId] = ['move_in' => $today, 'move_out' => null];
             }
-            $tenant->flats()->sync($syncData);
 
-            // Option B (alternative): keep history and only add new assignments:
-            // foreach ($data['flat_ids'] as $flatId) {
-            //     $tenant->flats()->syncWithoutDetaching([$flatId => ['move_in' => $today, 'move_out' => null]]);
-            // }
+            $tenant->flats()->sync($syncData);
         });
 
         return redirect()->route('admin.tenants.index')->with('success','Tenant updated.');

@@ -30,12 +30,11 @@ class BillController extends Controller
         return view('owner.bills.create', compact('flatId', 'flats', 'categories'));
     }
 
-    public function store(Request $rrequest){
-        $rrequest->validate(['flat_id'=>'required|exists:flats,id','bill_category_id'=>'required|exists:bill_categories,id','month'=>'required|date','amount'=>'required|numeric']);
-        $month = Carbon::parse($rrequest->month)->startOfMonth()->toDateString();
+    public function store(Request $request){
+        $request->validate(['flat_id'=>'required|exists:flats,id','bill_category_id'=>'required|exists:bill_categories,id','month'=>'required|date','amount'=>'required|numeric']);
+        $month = Carbon::parse($request->month)->startOfMonth()->toDateString();
 
-        // compute carried due
-        $prevDue = Bill::where('flat_id',$rrequest->flat_id)
+        $prevDue = Bill::where('flat_id',$request->flat_id)
             ->where('month','<',$month)
             ->whereIn('status',['unpaid','partial'])
             ->get()
@@ -44,18 +43,18 @@ class BillController extends Controller
                 return $b->total_due - $paid;
             });
 
-        $flat = Flat::find($rrequest->flat_id);
+        $flat = Flat::find($request->flat_id);
         $bill = Bill::create([
-            'owner_id'=>auth()->id(),
-            'building_id'=>$flat->building_id,
-            'flat_id'=>$rrequest->flat_id,
-            'bill_category_id'=>$rrequest->bill_category_id,
-            'month'=>$month,
-            'amount'=>$rrequest->amount,
-            'carried_due'=>$prevDue,
-            'total_due'=>bcadd($rrequest->amount,$prevDue,2),
-            'notes'=>$rrequest->notes ?? null,
-            'status'=>'unpaid'
+            'owner_id'          =>  auth()->id(),
+            'building_id'       =>  $flat->building_id,
+            'flat_id'           =>  $request->flat_id,
+            'bill_category_id'  =>  $request->bill_category_id,
+            'month'             =>  $month,
+            'amount'            =>  $request->amount,
+            'carried_due'       =>  $prevDue,
+            'total_due'         =>  bcadd($request->amount,$prevDue,2),
+            'notes'             =>  $request->notes ?? null,
+            'status'            =>  'unpaid'
         ]);
 
         auth()->user()->notify(new BillCreatedNotification($bill));
@@ -68,7 +67,6 @@ class BillController extends Controller
     }
 
     public function show(Bill $bill){
-        // $this->authorize('manage-owner',$bill);
         $bill->load('payments','flat','category');
         return view('owner.bills.show', compact('bill'));
     }

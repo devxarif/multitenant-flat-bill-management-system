@@ -8,7 +8,6 @@
     <div class="py-8">
         <div class="max-w-6xl mx-auto sm:px-6 lg:px-8 mt-5">
             <div class="bg-white dark:bg-gray-800 shadow sm:rounded-lg p-6">
-                {{-- Tenant Info --}}
                 <div class="flex justify-between items-start">
                     <div>
                         <h3 class="text-lg font-semibold">{{ $tenant->name }}</h3>
@@ -23,8 +22,6 @@
                         </form>
                     </div>
                 </div>
-
-                {{-- Assigned Flats --}}
                 <div class="mt-6">
                     <h4 class="font-semibold mb-2">Assigned Flats</h4>
                     @if($tenant->flats->isEmpty())

@@ -12,14 +12,12 @@ class PaymentController extends Controller
 {
     public function store(Request $request, Bill $bill)
     {
-        // $this->authorize('manage-owner', $bill);
-
         $data = $request->validate([
             'amount' => 'required|numeric|min:0.01',
             'reference' => 'nullable|string'
         ]);
 
-        $payment = $bill->payments()->create([
+        $bill->payments()->create([
             'amount' => $data['amount'],
             'reference' => $data['reference'] ?? null,
         ]);
@@ -31,6 +29,7 @@ class PaymentController extends Controller
         $bill->save();
 
         $admin = User::where('role','admin')->first();
+
         if ($admin) $admin->notify(new BillPaidNotification($bill));
         auth()->user()->notify(new BillPaidNotification($bill));
 

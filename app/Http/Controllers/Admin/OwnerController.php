@@ -46,7 +46,6 @@ class OwnerController extends Controller
 
     public function show(User $owner)
     {
-        // $this->authorize('isAdmin');
         $owner->load('building.flats.tenants');
         return view('admin.owners.show', compact('owner'));
     }

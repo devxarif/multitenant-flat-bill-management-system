@@ -11,7 +11,6 @@
                 <form method="POST" action="{{ route('owner.bills.store') }}">
                     @csrf
 
-                    <!-- Flat Selection -->
                     <div class="mb-4">
                         <label class="block text-sm font-medium">Flat</label>
                         <select name="flat_id" class="w-full border rounded px-3 py-2" required>
@@ -25,8 +24,6 @@
                         </select>
                         @error('flat_id') <p class="text-red-600 text-sm">{{ $message }}</p> @enderror
                     </div>
-
-                    <!-- Bill Category -->
                     <div class="mb-4">
                         <label class="block text-sm font-medium">Bill Category</label>
                         <select name="bill_category_id" class="w-full border rounded px-3 py-2" required>
@@ -37,22 +34,16 @@
                         </select>
                         @error('bill_category_id') <p class="text-red-600 text-sm">{{ $message }}</p> @enderror
                     </div>
-
-                    <!-- Month -->
                     <div class="mb-4">
                         <label class="block text-sm font-medium">Month</label>
                         <input type="month" name="month" value="{{ old('month') }}" required class="w-full border rounded px-3 py-2">
                         @error('month') <p class="text-red-600 text-sm">{{ $message }}</p> @enderror
                     </div>
-
-                    <!-- Amount -->
                     <div class="mb-4">
                         <label class="block text-sm font-medium">Amount</label>
                         <input type="number" step="0.01" name="amount" value="{{ old('amount') }}" required class="w-full border rounded px-3 py-2">
                         @error('amount') <p class="text-red-600 text-sm">{{ $message }}</p> @enderror
                     </div>
-
-                    <!-- Notes -->
                     <div class="mb-4">
                         <label class="block text-sm font-medium">Notes</label>
                         <textarea name="notes" rows="3" class="w-full border rounded px-3 py-2">{{ old('notes') }}</textarea>

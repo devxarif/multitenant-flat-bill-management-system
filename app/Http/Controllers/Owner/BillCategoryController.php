@@ -26,7 +26,6 @@ class BillCategoryController extends Controller
     }
 
     public function destroy(BillCategory $category){
-        // $this->authorize('manage-owner', $c);
         $category->delete();
 
         return back()->with('success','Category removed');

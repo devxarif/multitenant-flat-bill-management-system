@@ -49,8 +49,6 @@ class FlatController extends Controller
 
     public function update(Request $request, Flat $flat)
     {
-        // $this->authorize('manage-owner', $flat);
-
         $data = $request->validate([
             'flat_number' => 'required|string|max:50',
             'flat_owner_name' => 'nullable|string|max:255',
@@ -64,7 +62,6 @@ class FlatController extends Controller
 
     public function destroy(Flat $flat)
     {
-        // $this->authorize('manage-owner', $flat);
         $flat->delete();
         return back()->with('success', 'Flat deleted.');
     }

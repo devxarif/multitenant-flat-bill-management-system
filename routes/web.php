@@ -32,7 +32,6 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('dashboard');
         Route::resource('owners', AdminOwnerController::class);
         Route::resource('tenants', AdminTenantController::class);
-        Route::post('assign-tenant', [AdminAssignmentController::class, 'assign'])->name('assign-tenant');
     });
 
     // Owner routes

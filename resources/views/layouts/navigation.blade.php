@@ -35,6 +35,30 @@
                     </x-nav-link>
                 </div>
                 @endif
+                @if ($user->isAdmin())
+                    <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                        <x-nav-link :href="route('admin.owners.index')" :active="request()->routeIs('admin.owners.index') || request()->routeIs('admin.owners.create') || request()->routeIs('admin.owners.edit') || request()->routeIs('admin.owners.show')">
+                            {{ __('Manage Owners') }}
+                        </x-nav-link>
+                    </div>
+                    <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                        <x-nav-link :href="route('admin.tenants.index')" :active="request()->routeIs('admin.tenants.index') || request()->routeIs('admin.tenants.create') || request()->routeIs('admin.tenants.edit') || request()->routeIs('admin.tenants.show')">
+                            {{ __('Manage Tenants') }}
+                        </x-nav-link>
+                    </div>
+                @endif
+                @if ($user->isOwner())
+                    <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                        <x-nav-link :href="route('owner.flats.index')" :active="request()->routeIs('owner.flats.index') || request()->routeIs('owner.flats.create') || request()->routeIs('owner.flats.edit') || request()->routeIs('owner.flats.show')">
+                            {{ __('Flats') }}
+                        </x-nav-link>
+                    </div>
+                    <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                        <x-nav-link :href="route('owner.bills.index')" :active="request()->routeIs('owner.bills.index') || request()->routeIs('owner.bills.create')">
+                            {{ __('Bills') }}
+                        </x-nav-link>
+                    </div>
+                @endif
             </div>
 
             <!-- Settings Dropdown -->

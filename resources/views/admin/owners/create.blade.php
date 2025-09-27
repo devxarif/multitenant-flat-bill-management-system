@@ -33,6 +33,7 @@
             <input name="building_address" value="{{ old('building_address') }}" class="w-full border px-3 py-2">
         </div>
         <div class="flex justify-end">
+            <a href="{{ route('admin.owners.index') }}" class="px-4 py-2 border rounded mr-2">Cancel</a>
             <button class="px-4 py-2 bg-green-600 text-white rounded">Create</button>
         </div>
       </form>
