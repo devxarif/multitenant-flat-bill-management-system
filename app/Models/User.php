@@ -57,8 +57,15 @@ class User extends Authenticatable
         return $this->role === 'owner';
     }
 
+    public function buildings() {
+        return $this->hasMany(Building::class, 'owner_id');
+    }
+
     public function building() {
         return $this->hasOne(Building::class, 'owner_id');
     }
 
+    public function flats() {
+        return $this->hasMany(Flat::class, 'owner_id');
+    }
 }

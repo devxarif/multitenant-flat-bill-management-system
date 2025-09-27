@@ -21,7 +21,18 @@ class Tenant extends Model
         return $this->belongsTo(User::class, 'owner_id');
     }
 
+    public function flat() {
+        return $this->belongsTo(Flat::class, 'flat_id');
+    }
+
     public function building() {
         return $this->belongsTo(Building::class);
+    }
+
+    public function flats()
+    {
+        return $this->belongsToMany(Flat::class, 'flat_tenant')
+                    ->withPivot(['move_in', 'move_out'])
+                    ->withTimestamps();
     }
 }
