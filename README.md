@@ -47,3 +47,11 @@ php artisan serve
 ```bash
 npm run watch / yarn watch
 ```
+
+## Development Login (demo)
+
+| Role  | Email             | Password |
+|-------|-------------------|----------|
+| Admin | admin@mail.com    | password |
+| Owner | owner@mail.com    | password |
+
