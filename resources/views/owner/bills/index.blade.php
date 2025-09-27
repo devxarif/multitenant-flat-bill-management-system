@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-            {{ __('Owner Dashboard') }}
+            {{ __('Bill') }}
         </h2>
     </x-slot>
 
@@ -29,17 +29,17 @@
             <tbody class="divide-y text-center">
                 @foreach($bills as $bill)
                     <tr>
-                        <td class="px-6 py-4">{{ $bill?->flat?->flat_number }}</td>
+                        <td class="px-6 py-4">{{ $bill?->flat?->flat_number ?? '-' }}</td>
                         <td class="px-6 py-4">{{ $bill?->category?->name }}</td>
                         <td class="px-6 py-4">{{ $bill?->month?->format('F Y') }}</td>
                         <td class="px-6 py-4">{{ $bill?->total_due }}</td>
                         <td class="px-6 py-4">{{ ucfirst($bill?->status) }}</td>
                         <td class="px-6 py-4">
-                        <a href="{{ route('owner.bills.show', $bill) }}" class="text-blue-600">View</a>
-                        <form action="{{ route('owner.bills.pay', $bill) }}" method="POST" class="inline">@csrf
-                            <input type="number" name="amount" step="0.01" placeholder="amount" class="w-24 ml-2 px-2 py-1 border rounded">
-                            <button class="ml-1 px-2 py-1 bg-green-600 text-white rounded">Pay</button>
-                        </form>
+                            <a href="{{ route('owner.bills.show', $bill) }}" class="text-blue-600">View</a>
+                            <form action="{{ route('owner.bills.pay', $bill) }}" method="POST" class="inline">@csrf
+                                <input type="number" name="amount" step="0.01" placeholder="amount" class="w-24 ml-2 px-2 py-1 border rounded">
+                                <button class="ml-1 px-2 py-1 bg-green-600 text-white rounded">Pay</button>
+                            </form>
                         </td>
                     </tr>
                 @endforeach

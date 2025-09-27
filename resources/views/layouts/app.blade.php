@@ -29,6 +29,25 @@
 
             <!-- Page Content -->
             <main>
+                <div class="max-w-8xl">
+                    @if ($errors->any())
+                        <div class="mb-4 p-4 border-l-4 border-red-600 bg-red-50 text-red-700">
+                            <h4 class="font-semibold">Please fix the following errors:</h4>
+                            <ul class="list-disc list-inside mt-2 space-y-1">
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    @endif
+                    @if (session('success'))
+                        <div class="mb-4 p-4 border-l-4 border-green-600 bg-green-50 text-green-700 rounded">
+                            {{ session('success') }}
+                        </div>
+                    @endif
+
+                </div>
+
                 {{ $slot }}
             </main>
         </div>

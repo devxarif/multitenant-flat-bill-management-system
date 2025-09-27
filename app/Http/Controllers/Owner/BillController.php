@@ -2,11 +2,14 @@
 
 namespace App\Http\Controllers\Owner;
 
+use Carbon\Carbon;
 use App\Models\Bill;
 use App\Models\Flat;
 use App\Models\BillCategory;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Notification;
+use App\Notifications\BillCreatedNotification;
 
 class BillController extends Controller
 {
@@ -14,15 +17,17 @@ class BillController extends Controller
         $bills = Bill::with('flat','category','payments')
                         ->where('owner_id',auth()->id())
                         ->orderByDesc('month')
-                        ->paginate(20);
+                        ->paginate(10);
 
         return view('owner.bills.index', compact('bills'));
     }
 
-    public function create(Request $rrequest){
-        $flatId = $rrequest->flat_id;
+    public function create(Request $request){
+        $flatId = $request->flat_id;
+        $flats = auth()->user()->flats;
         $categories = BillCategory::where('owner_id', auth()->id())->get();
-        return view('owner.bills.create', compact('flatId','categories'));
+
+        return view('owner.bills.create', compact('flatId', 'flats', 'categories'));
     }
 
     public function store(Request $rrequest){
@@ -53,7 +58,6 @@ class BillController extends Controller
             'status'=>'unpaid'
         ]);
 
-        // notify Owner + tenants
         auth()->user()->notify(new BillCreatedNotification($bill));
         $tenants = $bill->flat->tenants()->whereNotNull('email')->get();
         foreach($tenants as $t){
