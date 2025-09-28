@@ -48,8 +48,9 @@ php artisan serve
 npm run watch / yarn watch
 ```
 
-## Development Login (demo)
+## Live Login Credentials
 
+https://mtfms.nexcoreit4u.com
 | Role  | Email             | Password |
 |-------|-------------------|----------|
 | Admin | admin@mail.com    | password |
